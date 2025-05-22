@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReconMaster - Advanced Reconnaissance Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-radar"></i>
+                <h1>ReconMaster</h1>
+            </div>
+            <div class="api-status">
+                <span id="shodan-status" class="api-badge" title="Shodan.io API Status">
+                    <i class="fas fa-satellite-dish"></i> Shodan
+                </span>
+                <span id="hunter-status" class="api-badge" title="Hunter.io API Status">
+                    <i class="fas fa-envelope"></i> Hunter
+                </span>
+                <span id="gemini-status" class="api-badge" title="Gemini AI API Status">
+                    <i class="fas fa-brain"></i> Gemini AI
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="scan-form-container">
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-search"></i> Target Reconnaissance</h2>
+                </div>
+                <div class="card-body">
+                    <form id="scan-form">
+                        <div class="input-group">
+                            <label for="target">Domain or IP Address:</label>
+                            <input type="text" id="target" name="target" placeholder="example.com or 8.8.8.8" required>
+                        </div>
+                        
+                        <div class="options-container">
+                            <h3>Scan Options</h3>
+                            <div class="options-grid">
+                                <div class="option-group">
+                                    <input type="checkbox" id="nmap" name="nmap" checked>
+                                    <label for="nmap">Nmap Scans</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="dns" name="dns" checked>
+                                    <label for="dns">DNS Recon</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="subdomains" name="subdomains" checked>
+                                    <label for="subdomains">Subdomain Enumeration</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="web" name="web" checked>
+                                    <label for="web">Web Reconnaissance</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="osint" name="osint" checked>
+                                    <label for="osint">OSINT</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="ports" name="ports" checked>
+                                    <label for="ports">Port Scanning</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="ssl_smb" name="ssl_smb" checked>
+                                    <label for="ssl_smb">SSL & SMB Scans</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="hunter" name="hunter" checked>
+                                    <label for="hunter">Hunter.io Email Intel</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="shodan" name="shodan" checked>
+                                    <label for="shodan">Shodan.io Host Info</label>
+                                </div>
+                                <div class="option-group">
+                                    <input type="checkbox" id="gemini" name="gemini" checked>
+                                    <label for="gemini">Gemini AI Analysis</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="submit" class="btn primary-btn">
+                                <i class="fas fa-play"></i> Start Reconnaissance
+                            </button>
+                            <button type="button" id="toggle-all" class="btn secondary-btn">
+                                <i class="fas fa-check-square"></i> Toggle All Options
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="scan-results-container hidden" id="results-section">
+            <div class="card">
+                <div class="card-header">
+                    <div class="header-content">
+                        <h2><i class="fas fa-terminal"></i> Live Scan Results</h2>
+                        <div class="scan-info">
+                            <span id="target-display">Target: </span>
+                            <span id="scan-status" class="status">
+                                <i class="fas fa-spinner fa-spin"></i> Running
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="progress-container">
+                        <div class="progress-bar" id="scan-progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="progress-text">0%</div>
+                    </div>
+                    
+                    <div class="results-container">
+                        <div class="tools-nav">
+                            <h3>Tools</h3>
+                            <ul id="tool-list">
+                                <!-- Tool list will be populated dynamically -->
+                            </ul>
+                        </div>
+                        <div class="output-container">
+                            <div id="tool-output">
+                                <div class="placeholder-message">
+                                    <i class="fas fa-terminal fa-3x"></i>
+                                    <p>Tool output will appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="download-report" class="btn success-btn" disabled>
+                            <i class="fas fa-download"></i> Download Full Report
+                        </button>
+                        <button id="cancel-scan" class="btn danger-btn">
+                            <i class="fas fa-stop"></i> Cancel Scan
+                        </button>
+                    </div>
